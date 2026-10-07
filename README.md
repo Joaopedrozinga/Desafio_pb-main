@@ -2,8 +2,7 @@
 
 Este é um projeto desenvolvido em [Laravel], estruturado diretamente para o repositório GitHub.
 
-## Tecnologias Utilizadas
-
+## Tecnologias Utiliza
 * **Framework:** Laravel 13.x (ou a versão instalada)
 * **Linguagem:** PHP 8.3+
 * **Gestor de Dependências:** Composer
@@ -91,4 +90,4 @@ O projeto estará disponível no seu navegador através do endereço: `http://12
 - [x] Estrutura base de DTOs e Enum `TaskStatus` criada
 - [ ] Configurar a ligação à Base de Dados.
 - [ ] Criar as Migrations e Models iniciais.
-- [ ] Desenvolver as primeiras rotas e controladores.
+- [ ] Desenvolver as primeiras rotas e controladores. Desenvolver as primeiras rotas e controladores.

@@ -1,6 +1,7 @@
 <?php
 
 use L5Swagger\Generator;
+use OpenApi\Analysers\StaticAnalyser;
 use OpenApi\scan;
 
 return [
@@ -128,7 +129,7 @@ return [
              *
              * @see scan
              */
-            'analyser' => \OpenApi\Analysers\StaticAnalyser::class,
+            'analyser' => StaticAnalyser::class,
 
             /**
              * analysis: defaults to a new \OpenApi\Analysis .

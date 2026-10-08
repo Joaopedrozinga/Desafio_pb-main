@@ -18,6 +18,79 @@ final class TaskController extends Controller
 
     /**
      * List tasks with optional filters.
+     *
+     * @OA\Get(
+     *   path="/api/v1/tasks",
+     *   summary="List tasks",
+     *   description="Retrieve a paginated list of the authenticated user's tasks, with optional filters.",
+     *   tags={"Tasks"},
+     *   security={{"bearerAuth":{}}},
+     *
+     *   @OA\Parameter(
+     *     name="status",
+     *     in="query",
+     *     description="Filter by task status (pending, in_progress, completed)",
+     *
+     *     @OA\Schema(type="string", enum={"pending","in_progress","completed"}),
+     *   ),
+     *
+     *   @OA\Parameter(
+     *     name="title",
+     *     in="query",
+     *     description="Filter by title (partial match)",
+     *
+     *     @OA\Schema(type="string"),
+     *   ),
+     *
+     *   @OA\Parameter(
+     *     name="user_id",
+     *     in="query",
+     *     description="Filter by user ID",
+     *
+     *     @OA\Schema(type="integer"),
+     *   ),
+     *
+     *   @OA\Parameter(
+     *     name="page",
+     *     in="query",
+     *     description="Page number for pagination",
+     *
+     *     @OA\Schema(type="integer", default=1),
+     *   ),
+     *
+     *   @OA\Parameter(
+     *     name="per_page",
+     *     in="query",
+     *     description="Number of items per page",
+     *
+     *     @OA\Schema(type="integer", default=15),
+     *   ),
+     *
+     *   @OA\Response(
+     *     response=200,
+     *     description="List of tasks",
+     *
+     *     @OA\JsonContent(
+     *
+     *       @OA\Property(property="data", type="array", @OA\Items(ref="#/components/schemas/Task")),
+     *       @OA\Property(
+     *         property="meta",
+     *         type="object",
+     *         @OA\Property(property="current_page", type="integer", example=1),
+     *         @OA\Property(property="last_page", type="integer", example=5),
+     *         @OA\Property(property="per_page", type="integer", example=15),
+     *         @OA\Property(property="total", type="integer", example=75),
+     *       ),
+     *     ),
+     *   ),
+     *
+     *   @OA\Response(
+     *     response=401,
+     *     description="Unauthenticated",
+     *
+     *     @OA\JsonContent(ref="#/components/schemas/UnauthorizedResponse"),
+     *   ),
+     * )
      */
     public function index(IndexTaskRequest $request): JsonResponse
     {
@@ -36,6 +109,45 @@ final class TaskController extends Controller
 
     /**
      * Create a new task.
+     *
+     * @OA\Post(
+     *   path="/api/v1/tasks",
+     *   summary="Create a new task",
+     *   description="Create a new task for the authenticated user.",
+     *   tags={"Tasks"},
+     *   security={{"bearerAuth":{}}},
+     *
+     *   @OA\RequestBody(
+     *     required=true,
+     *
+     *     @OA\JsonContent(ref="#/components/schemas/StoreTaskRequest"),
+     *   ),
+     *
+     *   @OA\Response(
+     *     response=201,
+     *     description="Task created successfully",
+     *
+     *     @OA\JsonContent(
+     *
+     *       @OA\Property(property="message", type="string", example="Tarefa criada com sucesso."),
+     *       @OA\Property(property="data", ref="#/components/schemas/Task"),
+     *     ),
+     *   ),
+     *
+     *   @OA\Response(
+     *     response=401,
+     *     description="Unauthenticated",
+     *
+     *     @OA\JsonContent(ref="#/components/schemas/UnauthorizedResponse"),
+     *   ),
+     *
+     *   @OA\Response(
+     *     response=422,
+     *     description="Validation error",
+     *
+     *     @OA\JsonContent(ref="#/components/schemas/ValidationError"),
+     *   ),
+     * )
      */
     public function store(StoreTaskRequest $request): JsonResponse
     {
@@ -48,15 +160,47 @@ final class TaskController extends Controller
     }
 
     /**
-     * Find task by ID and verify ownership.
-     */
-    private function findTask(Request $request, int $id): ?Task
-    {
-        return $request->user()->tasks()->find($id);
-    }
-
-    /**
      * Show a specific task.
+     *
+     * @OA\Get(
+     *   path="/api/v1/tasks/{id}",
+     *   summary="Show a task",
+     *   description="Retrieve a specific task by ID. The task must belong to the authenticated user.",
+     *   tags={"Tasks"},
+     *   security={{"bearerAuth":{}}},
+     *
+     *   @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     required=true,
+     *
+     *     @OA\Schema(type="integer", example=1),
+     *   ),
+     *
+     *   @OA\Response(
+     *     response=200,
+     *     description="Task details",
+     *
+     *     @OA\JsonContent(
+     *
+     *       @OA\Property(property="data", ref="#/components/schemas/Task"),
+     *     ),
+     *   ),
+     *
+     *   @OA\Response(
+     *     response=401,
+     *     description="Unauthenticated",
+     *
+     *     @OA\JsonContent(ref="#/components/schemas/UnauthorizedResponse"),
+     *   ),
+     *
+     *   @OA\Response(
+     *     response=404,
+     *     description="Task not found",
+     *
+     *     @OA\JsonContent(ref="#/components/schemas/NotFoundErrorResponse"),
+     *   ),
+     * )
      */
     public function show(Request $request, int $id): JsonResponse
     {
@@ -75,6 +219,60 @@ final class TaskController extends Controller
 
     /**
      * Update the status of a task.
+     *
+     * @OA\Put(
+     *   path="/api/v1/tasks/{id}",
+     *   summary="Update task status",
+     *   description="Update the status of an existing task. The task must belong to the authenticated user.",
+     *   tags={"Tasks"},
+     *   security={{"bearerAuth":{}}},
+     *
+     *   @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     required=true,
+     *
+     *     @OA\Schema(type="integer", example=1),
+     *   ),
+     *
+     *   @OA\RequestBody(
+     *     required=true,
+     *
+     *     @OA\JsonContent(ref="#/components/schemas/UpdateTaskRequest"),
+     *   ),
+     *
+     *   @OA\Response(
+     *     response=200,
+     *     description="Task updated successfully",
+     *
+     *     @OA\JsonContent(
+     *
+     *       @OA\Property(property="message", type="string", example="Tarefa actualizada com sucesso."),
+     *       @OA\Property(property="data", ref="#/components/schemas/Task"),
+     *     ),
+     *   ),
+     *
+     *   @OA\Response(
+     *     response=401,
+     *     description="Unauthenticated",
+     *
+     *     @OA\JsonContent(ref="#/components/schemas/UnauthorizedResponse"),
+     *   ),
+     *
+     *   @OA\Response(
+     *     response=404,
+     *     description="Task not found",
+     *
+     *     @OA\JsonContent(ref="#/components/schemas/NotFoundErrorResponse"),
+     *   ),
+     *
+     *   @OA\Response(
+     *     response=422,
+     *     description="Validation error",
+     *
+     *     @OA\JsonContent(ref="#/components/schemas/ValidationError"),
+     *   ),
+     * )
      */
     public function update(UpdateTaskRequest $request, int $id): JsonResponse
     {
@@ -96,6 +294,46 @@ final class TaskController extends Controller
 
     /**
      * Delete a task.
+     *
+     * @OA\Delete(
+     *   path="/api/v1/tasks/{id}",
+     *   summary="Delete a task",
+     *   description="Delete an existing task. The task must belong to the authenticated user.",
+     *   tags={"Tasks"},
+     *   security={{"bearerAuth":{}}},
+     *
+     *   @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     required=true,
+     *
+     *     @OA\Schema(type="integer", example=1),
+     *   ),
+     *
+     *   @OA\Response(
+     *     response=200,
+     *     description="Task deleted successfully",
+     *
+     *     @OA\JsonContent(
+     *
+     *       @OA\Property(property="message", type="string", example="Tarefa eliminada com sucesso."),
+     *     ),
+     *   ),
+     *
+     *   @OA\Response(
+     *     response=401,
+     *     description="Unauthenticated",
+     *
+     *     @OA\JsonContent(ref="#/components/schemas/UnauthorizedResponse"),
+     *   ),
+     *
+     *   @OA\Response(
+     *     response=404,
+     *     description="Task not found",
+     *
+     *     @OA\JsonContent(ref="#/components/schemas/NotFoundErrorResponse"),
+     *   ),
+     * )
      */
     public function destroy(Request $request, int $id): JsonResponse
     {

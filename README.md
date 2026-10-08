@@ -162,9 +162,9 @@ O projeto estará disponível no navegador através do endereço: `http://127.0.
 - [x] Etapa 0 — ambiente local, DTOs, Git (Gitflow) e agente configurados
 - [x] Etapa 1 — base de dados (`tasks`), Model `Task`, `TaskFactory` e `DatabaseSeeder`
 - [x] Etapa 2 — autenticação da API (Sanctum)
-- [ ] Etapa 3 — API de tarefas (`/api/v1`)
-- [ ] Etapa 4 — testes automatizados da API
-- [ ] Etapa 5 — web app (Livewire 3 + Bootstrap 5)
+- [x] Etapa 3 — API de tarefas (`/api/v1`)
+- [x] Etapa 4 — testes automatizados da API
+- [x] Etapa 5 — web app (Livewire 3 + Bootstrap 5)
 - [ ] Etapa 6 — documentação Swagger (OpenAPI)
 - [ ] Etapa 7 — README final e finalização
 

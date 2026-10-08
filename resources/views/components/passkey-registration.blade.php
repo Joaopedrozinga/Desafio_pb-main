@@ -91,7 +91,7 @@
                 x-ref="passkeyNameInput"
                 x-init="$nextTick(() => $refs.passkeyNameInput?.focus())"
             />
-            <flux:text class="!mt-1">{{ __('Give this passkey a name to help you identify it later.') }}</flux:text>
+            <flux:text class="mt-1">{{ __('Give this passkey a name to help you identify it later.') }}</flux:text>
 
             <p x-show="error" x-text="error" x-cloak class="text-sm text-red-600 dark:text-red-400"></p>
 
@@ -101,14 +101,14 @@
                     x-on:click="register()"
                     x-bind:disabled="loading || !name.trim()"
                 >
-                    <span x-show="!loading">{{ __('Register passkey') }}</span>
-                    <span x-show="loading" x-cloak>{{ __('Registering...') }}</span>
+                    <span x-show="!loading">{{ __('Registar passkey') }}</span>
+                    <span x-show="loading" x-cloak>{{ __('A registar...') }}</span>
                 </flux:button>
                 <flux:button
                     variant="ghost"
                     x-on:click="cancel()"
                 >
-                    {{ __('Cancel') }}
+                    {{ __('Cancelar') }}
                 </flux:button>
             </div>
         </div>

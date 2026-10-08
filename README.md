@@ -165,7 +165,7 @@ O projeto estará disponível no navegador através do endereço: `http://127.0.
 - [x] Etapa 3 — API de tarefas (`/api/v1`)
 - [x] Etapa 4 — testes automatizados da API
 - [x] Etapa 5 — web app (Livewire 3 + Bootstrap 5)
-- [ ] Etapa 6 — documentação Swagger (OpenAPI)
+- [x] Etapa 6 — documentação Swagger (OpenAPI)
 - [ ] Etapa 7 — README final e finalização
 
 ## 🧑‍💻 Boas Práticas

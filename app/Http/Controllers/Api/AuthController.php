@@ -9,6 +9,38 @@ use App\Services\AuthService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
+/**
+ * @OA\Info(
+ *   title="Task Manager API",
+ *   version="1.0.0",
+ *   description="RESTful API for task management (To-Do List).",
+ *   @OA\Contact(name="Pacheco Barroso"),
+ * )
+ * @OA\SecurityScheme(
+ *   scheme="bearer",
+ *   bearerFormat="JWT",
+ *   type="http",
+ *   securityScheme="bearerAuth",
+ *   description="Provide the Sanctum API token as a Bearer token."
+ * )
+ * @OA\Get(
+ *   path="/api/v1/user",
+ *   summary="Get authenticated user",
+ *   description="Retrieve the currently authenticated user's profile.",
+ *   tags={"Authentication"},
+ *   security={{"bearerAuth":{}}},
+ *   @OA\Response(
+ *     response=200,
+ *     description="User profile",
+ *     @OA\JsonContent(ref="#/components/schemas/User"),
+ *   ),
+ *   @OA\Response(
+ *     response=401,
+ *     description="Unauthenticated",
+ *     @OA\JsonContent(ref="#/components/schemas/UnauthorizedResponse"),
+ *   ),
+ * )
+ */
 final class AuthController extends Controller
 {
     public function __construct(private readonly AuthService $authService) {}

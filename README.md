@@ -149,7 +149,13 @@ npm run build
 php artisan migrate --seed
 ```
 
-### 7. Iniciar o Servidor Local
+### 7. Gerar a Documentação Swagger (OpenAPI)
+```bash
+php artisan l5-swagger:generate
+```
+A documentação será gerada em `storage/api-docs/api-docs.json` e pode ser visualizada no Swagger UI em: `http://127.0.0.1:8000/api/documentation`
+
+### 8. Iniciar o Servidor Local
 ```bash
 php artisan serve
 ```
@@ -165,7 +171,7 @@ O projeto estará disponível no navegador através do endereço: `http://127.0.
 - [x] Etapa 3 — API de tarefas (`/api/v1`)
 - [x] Etapa 4 — testes automatizados da API
 - [x] Etapa 5 — web app (Livewire 3 + Bootstrap 5)
-- [x] Etapa 6 — documentação Swagger (OpenAPI)
+- [x] Etapa 6 — documentação Swagger (OpenAPI) — gerar com `php artisan l5-swagger:generate`
 - [x] Etapa 7 — README final e finalização
 
 ## 🧑‍💻 Boas Práticas
@@ -173,6 +179,6 @@ O projeto estará disponível no navegador através do endereço: `http://127.0.
 - Arquitectura MVC + Design Patterns; nomes claros em inglês.
 - Gitflow (`main`, `develop`, `feature/<nome>`) com commits claros e frequentes (Conventional Commits).
 - Tratamento de erros com respostas e mensagens claras.
-- Documentação Swagger/OpenAPI com todos os endpoints, métodos, parâmetros, exemplos e códigos HTTP. e pode ser visualizado http://your-app.test/api/documentation
+- Documentação Swagger/OpenAPI com todos os endpoints, métodos, parâmetros, exemplos e códigos HTTP. Gere com `php artisan l5-swagger:generate` e visualize em `http://127.0.0.1:8000/api/documentation`
 
 ---

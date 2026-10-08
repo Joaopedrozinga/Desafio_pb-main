@@ -8,9 +8,6 @@
         <!-- Session Status -->
         <x-auth-session-status class="text-center" :status="session('status')" />
 
-        <!-- Passkey Login -->
-        <x-passkey-verify />
-
         <form method="POST" action="{{ route('login.store') }}" class="flex flex-col gap-6">
             @csrf
 
@@ -27,7 +24,7 @@
             />
 
             <!-- Password -->
-            <div class="relative">
+            <div class="flex flex-col gap-1">
                 <flux:input
                     name="password"
                     :label="__('Password')"
@@ -40,7 +37,7 @@
 
                 @if (Route::has('password.request'))
                     <flux:link
-                        class="absolute top-0 text-sm"
+                        class="text-sm text-right"
                         :href="route('password.request')"
                         wire:navigate
                     >

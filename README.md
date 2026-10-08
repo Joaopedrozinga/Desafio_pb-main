@@ -166,13 +166,13 @@ O projeto estará disponível no navegador através do endereço: `http://127.0.
 - [x] Etapa 4 — testes automatizados da API
 - [x] Etapa 5 — web app (Livewire 3 + Bootstrap 5)
 - [x] Etapa 6 — documentação Swagger (OpenAPI)
-- [ ] Etapa 7 — README final e finalização
+- [x] Etapa 7 — README final e finalização
 
 ## 🧑‍💻 Boas Práticas
 
 - Arquitectura MVC + Design Patterns; nomes claros em inglês.
 - Gitflow (`main`, `develop`, `feature/<nome>`) com commits claros e frequentes (Conventional Commits).
 - Tratamento de erros com respostas e mensagens claras.
-- Documentação Swagger/OpenAPI com todos os endpoints, métodos, parâmetros, exemplos e códigos HTTP.
+- Documentação Swagger/OpenAPI com todos os endpoints, métodos, parâmetros, exemplos e códigos HTTP. e pode ser visualizado http://your-app.test/api/documentation
 
 ---
